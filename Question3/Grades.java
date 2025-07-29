@@ -1,6 +1,8 @@
+package Question3;
+
 import java.util.Scanner;
 
-public class Marks{
+public class Grades{
 	public static Scanner sc = new Scanner(System.in);
 	public static void main(String[] arg){
 		int choice = 0;
@@ -16,7 +18,7 @@ public class Marks{
 		int[][] marks = new int[numberOfStudents][3];
 
 		System.out.println(marks[0][0]);
-		while(choice != 6){
+		while(choice != 7){
 			printMenu();
 			choice = sc.nextInt();
 
@@ -58,6 +60,9 @@ public class Marks{
 				Total(StudentId, marks);
 				break;
 			case 6 :
+				PrintGrades(marks, numberOfStudents);
+				break;
+			case 7 :
 				System.out.println("Exiting...");
 				break;
 			default :
@@ -116,5 +121,34 @@ public class Marks{
 			sum += marks[StudentId - 1][i];
 		}
 		System.out.println("Total marks of the " + StudentId + " is " + sum);
+	}
+
+	static void PrintGrades(int[][] marks, int numberOfStudents){
+		System.out.println("+------------+---------------+---------------+---------------+");
+        System.out.println("| Student ID | Mathematics   | Chemistry     | Physics       |");
+        System.out.println("+------------+---------------+---------------+---------------+");
+        
+        for(int i=0; i<numberOfStudents; i++){
+            System.out.printf("| %-10d | %-13s | %-13s | %-13s |\n", 
+                i+1,
+				getGrade(marks[i][0]),
+				getGrade(marks[i][1]),
+				getGrade(marks[i][2]));
+        }
+        System.out.println("+------------+---------------+---------------+---------------+");
+	}
+
+	static String getGrade(int mark){
+		if (mark >= 90){
+			return "A";
+		}else if (mark >= 80){
+			return "B";
+		}else if (mark >= 70){
+			return "C";
+		}else if (mark >= 60){
+			return "D";
+		}else{
+			return "Fail";
+		}
 	}
 }
