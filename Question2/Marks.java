@@ -1,11 +1,10 @@
 import java.util.Scanner;
 
 public class Marks{
-	
+	public static Scanner sc = new Scanner(System.in);
 	public static void main(String[] arg){
-		Scanner sc = new Scanner(System.in);
 		int choice = 0;
-		int SubjectId;
+		int SubjectId, StudentId;
 		System.out.println("Enter the number of students");
 		int numberOfStudents = sc.nextInt();
 		
@@ -15,22 +14,21 @@ public class Marks{
 		}
 
 		int[][] marks = new int[numberOfStudents][3];
-		while(choice != 6){
+
+		System.out.println(marks[0][0]);
+		while(choice != 7){
 			printMenu();
 			choice = sc.nextInt();
-			
-			System.out.print("Enter the Student Id : ");
-			int StudentId = sc.nextInt();
-			if(StudentId > numberOfStudents){
-				System.out.println("Invalid student Id");
-				break;
-			}
 
 			switch(choice){
 			case 1 : 
+				System.out.print("Enter the Student Id : ");
+				StudentId = sc.nextInt();
 				AddMark(StudentId, marks);
 				break;
-			case 2 : 
+			case 2 :
+				System.out.print("Enter the Student Id : ");
+				StudentId = sc.nextInt();
 				System.out.print("Enter the Subject Id : ");
 				SubjectId = sc.nextInt();
 				if(SubjectId  > 3){
@@ -50,18 +48,26 @@ public class Marks{
 				AverageSubject(SubjectId, marks, numberOfStudents);
 				break;
 			case 4 : 
+				System.out.print("Enter the Student Id : ");
+				StudentId = sc.nextInt();
 				AverageStudent(StudentId, marks);
 				break;
 			case 5 : 
+				System.out.print("Enter the Student Id : ");
+				StudentId = sc.nextInt();
 				Total(StudentId, marks);
 				break;
 			case 6 :
+				Grades(marks,numberOfStudents);
+				break;
+			case 7 :
 				System.out.println("Exiting...");
 				break;
 			default :
 				System.out.println("Invalid Input");
 			}
 		}
+		sc.close();
 	}
 
 	static void printMenu(){
@@ -71,12 +77,11 @@ public class Marks{
 		System.out.println("3. Get the average for a subject");
 		System.out.println("4. Get the average for a student");
 		System.out.println("5. Get the total mark of student");
-		System.out.println("6. Exit");
+		System.out.println("6. Print Grades");
+		System.out.println("7. Exit");
 	}
 
 	static void AddMark(int StudentId, int[][] marks){
-		Scanner sc = new Scanner(System.in);
-
 		System.out.print("Enter the marks of Mathematics: ");
 		marks[StudentId - 1][0] = sc.nextInt();
 
@@ -88,8 +93,6 @@ public class Marks{
 	}
 	
 	static void UpdateMark(int StudentId, int SubjectId, int[][]marks){
-		Scanner sc = new Scanner(System.in);
-
 		System.out.print("Enter the new mark: ");
 		marks[StudentId - 1][SubjectId - 1] = sc.nextInt();
 	}	
@@ -116,5 +119,34 @@ public class Marks{
 			sum += marks[StudentId - 1][i];
 		}
 		System.out.println("Total marks of the " + StudentId + " is " + sum);
+	}
+
+	static void Grades(int[][] marks, int numberOfStudents){
+		System.out.println("+------------+---------------+---------------+---------------+");
+        System.out.println("| Student ID | Mathematics   | Chemistry     | Physics       |");
+        System.out.println("+------------+---------------+---------------+---------------+");
+        
+        for(int i=0; i<numberOfStudents; i++){
+            System.out.printf("| %-10d | %-13s | %-13s | %-13s |\n", 
+                i+1,
+				getGrade(marks[i][0]),
+				getGrade(marks[i][1]),
+				getGrade(marks[i][2]));
+        }
+        System.out.println("+------------+---------------+---------------+---------------+");
+	}
+
+	static String getGrade(int mark){
+		if (mark >= 90){
+			return "A";
+		}else if (mark >= 80){
+			return "B";
+		}else if (mark >= 70){
+			return "C";
+		}else if (mark >= 60){
+			return "D";
+		}else{
+			return "Fail";
+		}
 	}
 }
