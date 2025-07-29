@@ -9,7 +9,8 @@ public class Welcome{
         System.out.print("Enter your last name: ");
         String lastName = sc.nextLine();
 
-	System.out.println("Welcome to the Second Year " + firstName+ " " + lastName);
+	    System.out.println("Welcome to the Second Year " + firstName+ " " + lastName);
+        sc.close();
 
     }
 }
